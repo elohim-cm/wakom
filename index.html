@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#050806">
+  <meta name="description" content="Wakom arrive bientôt — la solution simple pour vendre, gérer et encaisser directement via WhatsApp.">
+  <title>Wakom — Bientôt disponible</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050806;
+      --text: #f8faf9;
+      --muted: rgba(248,250,249,.58);
+      --muted-2: rgba(248,250,249,.34);
+      --green: #25D366;
+      --green-2: #7AF0A4;
+      --line: rgba(255,255,255,.08);
+      --glass: rgba(16,22,18,.74);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { width: 100%; min-height: 100%; }
+    body {
+      margin: 0;
+      font-family: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      overflow: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .page {
+      position: relative;
+      width: 100%;
+      height: 100svh;
+      min-height: 720px;
+      overflow: hidden;
+      isolation: isolate;
+      background:
+        radial-gradient(circle at 50% 44%, rgba(37,211,102,.07), transparent 24%),
+        radial-gradient(circle at 5% 80%, rgba(37,211,102,.08), transparent 26%),
+        radial-gradient(circle at 96% 74%, rgba(37,211,102,.06), transparent 23%),
+        #050806;
+    }
+
+    .grid {
+      position: absolute;
+      inset: 0;
+      opacity: .11;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 62px 62px;
+      mask-image: linear-gradient(to bottom, #000 0%, rgba(0,0,0,.7) 58%, transparent 100%);
+    }
+
+    .glow {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(90px);
+      opacity: .38;
+    }
+    .glow-a { width: 360px; height: 360px; left: -190px; top: 40%; background: rgba(37,211,102,.10); animation: driftA 11s ease-in-out infinite; }
+    .glow-b { width: 320px; height: 320px; right: -180px; bottom: -80px; background: rgba(0,255,140,.08); animation: driftB 13s ease-in-out infinite; }
+    @keyframes driftA { 50% { transform: translate(36px,-28px); } }
+    @keyframes driftB { 50% { transform: translate(-24px,-22px); } }
+
+    .container {
+      width: min(1180px, calc(100% - 44px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 5;
+    }
+
+    header {
+      position: absolute;
+      inset: 0 0 auto;
+      padding-top: 28px;
+      z-index: 10;
+      animation: fadeDown .8s ease both;
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      font-family: "Manrope", sans-serif;
+      font-size: 23px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -.8px;
+    }
+
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+    
+      display: grid;
+      place-items: center;
+    
+      border-radius: 11px;
+    
+      background: #25D366;
+    
+      box-shadow:
+        0 0 24px rgba(37, 211, 102, 0.22);
+    
+      overflow: hidden;
+    }
+    
+    .brand-mark img {
+      width: 28px;
+      height: 28px;
+    
+      display: block;
+    
+      object-fit: contain;
+    }
+    .brand-mark svg { width: 25px; height: 25px; display:block; }
+    .brand-mark svg path { fill: #fff; }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 9px 15px;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 999px;
+      background: rgba(255,255,255,.025);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      color: rgba(255,255,255,.64);
+      font-size: 12px;
+    }
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 12px rgba(37,211,102,.8);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 50% { opacity:.35; transform:scale(.72); } }
+
+    main {
+      position: relative;
+      z-index: 4;
+      height: 100%;
+    }
+
+    .hero {
+      height: 100%;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 92px 0 54px;
+    }
+
+    .hero-inner {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform: translateY(-7px);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 24px;
+      padding: 8px 13px;
+      border: 1px solid rgba(37,211,102,.25);
+      border-radius: 999px;
+      background: rgba(37,211,102,.055);
+      color: var(--green-2);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .25px;
+      animation: fadeUp .75s ease .08s both;
+    }
+
+    h1 {
+      width: min(900px, 100%);
+      margin: 0;
+      font-family: "Manrope", system-ui, sans-serif;
+      font-size: clamp(50px, 6.35vw, 84px);
+      line-height: .98;
+      font-weight: 800;
+      letter-spacing: -4.3px;
+      text-wrap: balance;
+      animation: fadeUp .8s ease .16s both;
+    }
+    .gradient {
+      display: block;
+      background: linear-gradient(100deg, #fff 4%, #fff 41%, var(--green-2) 75%, var(--green) 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .description {
+      width: min(650px, 100%);
+      margin: 28px auto 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.62;
+      animation: fadeUp .8s ease .24s both;
+    }
+    .description strong { color: rgba(255,255,255,.92); font-weight: 700; }
+
+    .countdown-wrap {
+      margin-top: 34px;
+      animation: fadeUp .8s ease .32s both;
+    }
+    .countdown-label {
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: rgba(255,255,255,.34);
+      font-size: 10px;
+      font-weight: 800;
+    }
+    .countdown {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .time-box {
+      width: 92px;
+      height: 96px;
+      border-radius: 19px;
+      border: 1px solid rgba(255,255,255,.09);
+      background: linear-gradient(145deg, rgba(255,255,255,.07), rgba(255,255,255,.025));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.045), 0 18px 42px rgba(0,0,0,.24);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+    }
+    .time-number {
+      font-family: "Manrope", sans-serif;
+      font-weight: 800;
+      font-size: 33px;
+      line-height: 1;
+      letter-spacing: -1px;
+      font-variant-numeric: tabular-nums;
+    }
+    .time-label {
+      margin-top: 7px;
+      color: rgba(255,255,255,.31);
+      font-size: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1.6px;
+      font-weight: 700;
+    }
+    .sep {
+      align-self: center;
+      margin-top: -18px;
+      color: rgba(37,211,102,.72);
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .visual {
+      position: relative;
+      width: min(930px, 100%);
+      height: 128px;
+      margin-top: 28px;
+      animation: fadeUp .9s ease .40s both;
+      pointer-events: none;
+    }
+
+    .card {
+      position: absolute;
+      min-width: 225px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 15px;
+      border-radius: 15px;
+      border: 1px solid rgba(255,255,255,.09);
+      background: var(--glass);
+      box-shadow: 0 24px 55px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.045);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .card-left { left: 0; top: 25px; animation: float1 6s ease-in-out infinite; }
+    .card-center { left: 50%; top: 0; min-width: 255px; transform: translateX(-50%); padding: 16px 19px; animation: float2 7s ease-in-out infinite; }
+    .card-right { right: 0; top: 42px; animation: float3 6.6s ease-in-out infinite; }
+    @keyframes float1 { 50% { transform: translateY(-10px) rotate(-1deg); } }
+    @keyframes float2 { 50% { transform: translateX(-50%) translateY(-9px); } }
+    @keyframes float3 { 50% { transform: translateY(-11px) rotate(1deg); } }
+
+    .mini-icon {
+      width: 38px;
+      height: 38px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      border-radius: 11px;
+      background: rgba(37,211,102,.11);
+      color: var(--green-2);
+    }
+    .mini-icon svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+    .card-text { text-align:left; }
+    .card-title { font-size: 11px; font-weight: 700; margin-bottom: 3px; }
+    .card-subtitle { color: rgba(255,255,255,.36); font-size: 9px; }
+    .stat { display:flex; align-items:center; justify-content:space-between; gap:24px; width:100%; }
+    .stat-value { font-family:"Manrope", sans-serif; font-weight:800; font-size:23px; letter-spacing:-.6px; }
+    .stat-positive { margin-top:4px; color:#49dd7d; font-size:9px; }
+    .chart { width:72px; height:32px; }
+    .chart path { fill:none; stroke:var(--green); stroke-width:2; stroke-linecap:round; }
+
+    .features {
+      display:flex;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top: 0;
+      animation: fadeUp .8s ease .48s both;
+    }
+    .feature {
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.07);
+      background:rgba(255,255,255,.022);
+      color:rgba(255,255,255,.45);
+      font-size:10px;
+    }
+    .check {
+      width:16px; height:16px;
+      display:grid; place-items:center;
+      border-radius:50%;
+      background:rgba(37,211,102,.12);
+      color:var(--green-2);
+      font-size:9px;
+    }
+
+    footer {
+      position:absolute;
+      inset:auto 0 0;
+      z-index:10;
+      padding-bottom:20px;
+      text-align:center;
+      color:rgba(255,255,255,.25);
+      font-size:10px;
+    }
+    footer a { color:rgba(255,255,255,.64); transition:color .2s ease; }
+    footer a:hover { color:var(--green); }
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeDown { from{opacity:0;transform:translateY(-12px)} to{opacity:1;transform:translateY(0)} }
+
+    @media (max-width: 900px) {
+      .page { min-height: 660px; }
+      .container { width: min(100% - 32px, 660px); }
+      .visual { width: 100%; height: 112px; }
+      .card-left { left: -6px; }
+      .card-right { right: -6px; }
+    }
+
+    @media (max-width: 600px) {
+      body { overflow:hidden; }
+      .page { min-height: 640px; }
+      header { padding-top:18px; }
+      .container { width: calc(100% - 24px); }
+      .brand { font-size:20px; }
+      .brand-mark { width:35px; height:35px; border-radius:11px; }
+      .brand-mark svg { width:22px; height:22px; }
+      .status { padding:8px 11px; font-size:9px; }
+      .hero { padding:74px 0 38px; }
+      .hero-inner { transform:none; }
+      .eyebrow { margin-bottom:19px; padding:7px 11px; font-size:9px; }
+      h1 { font-size: clamp(42px, 13.6vw, 61px); letter-spacing:-3px; }
+      .description { margin-top:21px; font-size:14px; line-height:1.56; padding:0 4px; }
+      .countdown-wrap { margin-top:28px; }
+      .countdown-label { margin-bottom:12px; font-size:8px; letter-spacing:2.6px; }
+      .countdown { gap:4px; }
+      .time-box { width:65px; height:74px; border-radius:14px; }
+      .time-number { font-size:23px; }
+      .time-label { margin-top:6px; font-size:7px; letter-spacing:1px; }
+      .sep { font-size:16px; margin-top:-12px; }
+      .visual { height:95px; margin-top:18px; }
+      .card { min-width:0; padding:9px 10px; border-radius:12px; gap:8px; }
+      .card-left { left:-10px; top:22px; }
+      .card-center { min-width:185px; top:0; padding:12px 14px; }
+      .card-right { right:-10px; top:31px; }
+      .mini-icon { width:30px; height:30px; border-radius:8px; }
+      .mini-icon svg { width:15px; height:15px; }
+      .card-title { font-size:8px; }
+      .card-subtitle { font-size:7px; }
+      .stat-value { font-size:17px; }
+      .stat-positive { font-size:7px; }
+      .chart { width:52px; height:27px; }
+      .features { margin-top:0; gap:5px; }
+      .feature { padding:7px 9px; font-size:8px; }
+      .check { width:13px; height:13px; font-size:8px; }
+      footer { padding-bottom:13px; font-size:8px; }
+    }
+
+    @media (max-width: 370px) {
+      .time-box { width:57px; }
+      .visual { transform:scale(.92); transform-origin:top center; }
+      .card-left { left:-18px; }
+      .card-right { right:-18px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="grid" aria-hidden="true"></div>
+    <div class="glow glow-a" aria-hidden="true"></div>
+    <div class="glow glow-b" aria-hidden="true"></div>
+
+    <header>
+      <div class="container">
+        <nav class="nav" aria-label="Navigation principale">
+          <a class="brand" href="#" aria-label="Wakom - accueil">
+            <span class="brand-mark" aria-hidden="true">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+                alt=""
+              >
+            </span>
+            <span>WAKOM</span>
+          </a>
+
+          <div class="status">
+            <span class="status-dot" aria-hidden="true"></span>
+            Lancement prochainement
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="container">
+          <div class="hero-inner">
+            <div class="eyebrow"><span aria-hidden="true">✦</span> UNE NOUVELLE FAÇON DE VENDRE</div>
+
+            <h1 id="hero-title">
+              Le commerce,<br>
+              directement sur
+              <span class="gradient">WhatsApp.</span>
+            </h1>
+
+            <p class="description">
+              <strong>Wakom</strong> est la solution simple pour <strong>vendre, gérer et encaisser</strong> directement via WhatsApp.<br>
+              Votre commerce. Vos clients. Un seul endroit.
+            </p>
+
+            <div class="countdown-wrap" aria-live="polite">
+              <div class="countdown-label">WAKOM ARRIVE DANS</div>
+              <div class="countdown">
+                <div class="time-box"><div class="time-number" id="days">00</div><div class="time-label">Jours</div></div>
+                <div class="sep">:</div>
+                <div class="time-box"><div class="time-number" id="hours">00</div><div class="time-label">Heures</div></div>
+                <div class="sep">:</div>
+                <div class="time-box"><div class="time-number" id="minutes">00</div><div class="time-label">Minutes</div></div>
+                <div class="sep">:</div>
+                <div class="time-box"><div class="time-number" id="seconds">00</div><div class="time-label">Secondes</div></div>
+              </div>
+            </div>
+
+            <div class="visual" aria-hidden="true">
+              <div class="card card-left">
+                <div class="mini-icon">
+                  <svg viewBox="0 0 24 24"><path d="M20 7H4a1 1 0 0 0-1 1v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8a1 1 0 0 0-1-1Z"/><path d="M7 7V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2"/></svg>
+                </div>
+                <div class="card-text"><div class="card-title">Catalogue</div><div class="card-subtitle">Vos produits au même endroit</div></div>
+              </div>
+
+              <div class="card card-center">
+                <div class="stat">
+                  <div><div class="stat-value">+24.8%</div><div class="stat-positive">↑ ventes ce mois</div></div>
+                  <svg class="chart" viewBox="0 0 72 32"><path d="M2 28 C10 26, 12 19, 19 22 C27 25, 30 12, 37 16 C44 19, 49 6, 55 10 C62 14, 66 5, 70 2"/></svg>
+                </div>
+              </div>
+
+              <div class="card card-right">
+                <div class="mini-icon">
+                  <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 9h10M7 13h6"/></svg>
+                </div>
+                <div class="card-text"><div class="card-title">Paiement reçu</div><div class="card-subtitle">Commande #WKM-284</div></div>
+              </div>
+            </div>
+
+            <div class="features">
+              <div class="feature"><span class="check">✓</span>Bot WhatsApp</div>
+              <div class="feature"><span class="check">✓</span>Catalogue</div>
+              <div class="feature"><span class="check">✓</span>Paiements</div>
+              <div class="feature"><span class="check">✓</span>Gestion simplifiée</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      WAKOM © 2026 <span aria-hidden="true">·</span> Développé par
+      <a href="https://elohim-warren.vercel.app" target="_blank" rel="noopener noreferrer">Elohim Warren</a>
+    </footer>
+  </div>
+
+  <script>
+    // Change uniquement cette date pour définir la date/heure officielle du lancement.
+    const launchDate = new Date('2026-12-31T23:59:59').getTime();
+
+    const $ = (id) => document.getElementById(id);
+
+    function updateCountdown() {
+      const distance = launchDate - Date.now();
+
+      if (distance <= 0) {
+        $('days').textContent = '00';
+        $('hours').textContent = '00';
+        $('minutes').textContent = '00';
+        $('seconds').textContent = '00';
+        document.querySelector('.countdown-label').textContent = 'WAKOM EST DISPONIBLE';
+        return;
+      }
+
+      const days = Math.floor(distance / 86400000);
+      const hours = Math.floor((distance % 86400000) / 3600000);
+      const minutes = Math.floor((distance % 3600000) / 60000);
+      const seconds = Math.floor((distance % 60000) / 1000);
+
+      $('days').textContent = String(days).padStart(2, '0');
+      $('hours').textContent = String(hours).padStart(2, '0');
+      $('minutes').textContent = String(minutes).padStart(2, '0');
+      $('seconds').textContent = String(seconds).padStart(2, '0');
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
