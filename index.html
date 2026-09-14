@@ -22,16 +22,17 @@
     }
 
     * { box-sizing: border-box; }
-    html, body { width: 100%; min-height: 100%; }
-    body {
+    html, body {
       margin: 0;
+      padding: 0;
       width: 100%;
       min-height: 100%;
+    }
+    body {
       font-family: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--text);
       background: var(--bg);
       overflow-x: hidden;
-      overflow-y: auto;
     }
 
     a { color: inherit; text-decoration: none; }
@@ -40,7 +41,11 @@
       position: relative;
       width: 100%;
       min-height: 100svh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
       isolation: isolate;
+      overflow: hidden;
       background:
         radial-gradient(circle at 50% 44%, rgba(37,211,102,.07), transparent 24%),
         radial-gradient(circle at 5% 80%, rgba(37,211,102,.08), transparent 26%),
@@ -157,14 +162,17 @@
       position: relative;
       z-index: 4;
       width: 100%;
+      flex: 1 0 auto;
+      display: flex;
+      flex-direction: column;
     }
 
     .hero {
-      min-height: 100svh;
+      flex: 1 0 auto;
       display: grid;
       place-items: center;
       text-align: center;
-      padding: 110px 0 70px;
+      padding: 110px 0 48px;
     }
 
     .hero-inner {
@@ -355,22 +363,22 @@
     }
 
     footer {
-      position:absolute;
-      inset:auto 0 0;
-      z-index:10;
-      padding-bottom:20px;
-      text-align:center;
-      color:rgba(255,255,255,.25);
-      font-size:10px;
+      position: relative;
+      z-index: 10;
+      padding: 12px 0 20px;
+      text-align: center;
+      color: rgba(255,255,255,.25);
+      font-size: 10px;
+      margin-top: auto;
+      flex-shrink: 0;
     }
-    footer a { color:rgba(255,255,255,.64); transition:color .2s ease; }
-    footer a:hover { color:var(--green); }
+    footer a { color: rgba(255,255,255,.64); transition: color .2s ease; }
+    footer a:hover { color: var(--green); }
 
     @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
     @keyframes fadeDown { from{opacity:0;transform:translateY(-12px)} to{opacity:1;transform:translateY(0)} }
 
     @media (max-width: 900px) {
-      .page { min-height: 660px; }
       .container { width: min(100% - 32px, 660px); }
       .visual { width: 100%; height: 112px; }
       .card-left { left: -6px; }
@@ -386,10 +394,10 @@
       .brand-mark { width:35px; height:35px; border-radius:11px; }
       .brand-mark svg { width:22px; height:22px; }
       .status { padding:8px 11px; font-size:9px; }
-      .hero { padding:74px 0 38px; }
+      .hero { padding:74px 0 24px; }
       .hero-inner { transform:none; }
       .eyebrow { margin-bottom:19px; padding:7px 11px; font-size:9px; }
-      h1 { font-size: clamp(42px, 13.6vw, 61px); letter-spacing:-3px; }
+      h1 { font-size: clamp(42px, 13.6vw, 61px); }
       .description { margin-top:21px; font-size:14px; line-height:1.56; padding:0 4px; }
       .countdown-wrap { margin-top:28px; }
       .countdown-label { margin-bottom:12px; font-size:8px; letter-spacing:2.6px; }
@@ -398,6 +406,7 @@
       .time-number { font-size:23px; }
       .time-label { margin-top:6px; font-size:7px; letter-spacing:1px; }
       .sep { font-size:16px; margin-top:-12px; }
+
       .visual { height:95px; margin-top:18px; }
       .card { min-width:0; padding:9px 10px; border-radius:12px; gap:8px; }
       .card-left { left:-10px; top:22px; }
@@ -410,10 +419,11 @@
       .stat-value { font-size:17px; }
       .stat-positive { font-size:7px; }
       .chart { width:52px; height:27px; }
+      
       .features { margin-top:0; gap:5px; }
       .feature { padding:7px 9px; font-size:8px; }
       .check { width:13px; height:13px; font-size:8px; }
-      footer { padding-bottom:13px; font-size:8px; }
+      footer { padding: 10px 0 16px; font-size:8px; }
     }
 
     @media (max-width: 370px) {
